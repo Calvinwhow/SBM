@@ -24,20 +24,24 @@ for dir in $ROOTDIR/*; do
         # Loop over hemispheres (left and right)
         for hemi in lh rh; do
             #Assess for file
-            if test -f "$ROOTDIR/$sub/surf/$hemi.thickness"; then
-                echo "The file exists."
-            else
-                echo "The file does not exist."
+            if ! test -f "$ROOTDIR/$sub/surf/$hemi.thickness"; then
+                echo "DOES NOT EXIST: $ROOTDIR/$sub/surf/$hemi.thickness"
             fi
 
-            # Process thickness data for the subject and hemisphere using mri_surf2surf. Can take a --fwhm parameter defining FWHM as int in mm. 
-            mri_surf2surf \
-            --srcsubject $sub \
-            --srcsurfval $ROOTDIR/$sub/surf/$hemi.thickness \
-            --trgsubject fsaverage5 \
-            --trgsurfval $ROOTDIR/$sub/surf/$hemi.${sub}_thickness.s${FWHM}.fs5.gii \
-            --hemi $hemi \
-            --fwhm $FWHM
+            #Assess if has already been run
+            if test -f "$ROOTDIR/$sub/surf/$hemi.${sub}_thickness.s${FWHM}.fs5.gii"; then
+                echo "ALREADY PROCESSED: $ROOTDIR/$sub/surf/$hemi.thickness"
+                continue
+            else
+                # Process thickness data for the subject and hemisphere using mri_surf2surf. Can take a --fwhm parameter defining FWHM as int in mm. 
+                mri_surf2surf \
+                --srcsubject $sub \
+                --srcsurfval $ROOTDIR/$sub/surf/$hemi.thickness \
+                --trgsubject fsaverage5 \
+                --trgsurfval $ROOTDIR/$sub/surf/$hemi.${sub}_thickness.s${FWHM}.fs5.gii \
+                --hemi $hemi \
+                --fwhm $FWHM
+            fi
         done
     fi
 done
