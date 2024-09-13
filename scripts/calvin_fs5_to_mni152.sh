@@ -33,9 +33,8 @@ for dir in $ROOTDIR/*; do
             # Method A: convert fsaverage5 (now 7) gii to nii, then nii to mni152 nii
             # Step 1: Convert the fsaverage space image into a volume image (still in fsaverage space)
             subnum=${sub:4}
-            echo "Looking for files following the structure:" $hemi.$sub.$FWHM.gii
             mri_surf2vol \
-            --surfval "$ROOTDIR/$sub/$hemi.$subnum.$FWHM.gii" \
+            --surfval "$ROOTDIR/$sub/surf/$hemi.${sub}.thickness.s${FWHM}.fs5.mgh" \
             --identity "fsaverage5" \
             --template "$ROOTDIR/fsaverage5/mri/T1.mgz" \
             --hemi $hemi \

@@ -29,8 +29,8 @@ for dir in $ROOTDIR/*; do
             fi
 
             #Assess if has already been run
-            if test -f "$ROOTDIR/$sub/surf/$hemi.${sub}_thickness.s${FWHM}.fs5.gii"; then
-                echo "ALREADY PROCESSED: $ROOTDIR/$sub/surf/$hemi.thickness"
+            if test -f "$ROOTDIR/$sub/surf/$hemi.${sub}.thickness.s${FWHM}.fs5.mgh"; then
+                echo "$ROOTDIR/$sub/surf/$hemi.${sub}.thickness.s${FWHM}.fs5.mgh"
                 continue
             else
                 # Process thickness data for the subject and hemisphere using mri_surf2surf. Can take a --fwhm parameter defining FWHM as int in mm. 
@@ -38,7 +38,7 @@ for dir in $ROOTDIR/*; do
                 --srcsubject $sub \
                 --srcsurfval $ROOTDIR/$sub/surf/$hemi.thickness \
                 --trgsubject fsaverage5 \
-                --trgsurfval $ROOTDIR/$sub/surf/$hemi.${sub}_thickness.s${FWHM}.fs5.gii \
+                --trgsurfval $ROOTDIR/$sub/surf/$hemi.${sub}.thickness.s${FWHM}.fs5.mgh \
                 --hemi $hemi \
                 --fwhm $FWHM
             fi
