@@ -9,7 +9,7 @@ ROOTDIR="/data"
 FWHM=6
 
 # Tell FreeSurfer where the subjects are
-export SUBJECTS_DIR=$ROOTDIR
+export SUBJECTS_DIR=/data/fs
 
 # Ensure fsaverage5 is available
 if [ ! -d "$ROOTDIR/fsaverage5" ]; then
@@ -21,6 +21,7 @@ fi
 for dir in $ROOTDIR/*; do
     if [ -d "$dir" ]; then
         sub=$(basename "$dir")  # Get the subject identifier
+
         # Skip the fsaverage5 directory
         if [ "$sub" == "fsaverage5" ]; then
             continue
